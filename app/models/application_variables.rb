@@ -177,7 +177,7 @@ module ApplicationVariables
       :required_if_value => "Y"
     },
     {
-      :name       => "Applicant Post Partum Period Indicator",
+      :name       => "Applicant Postpartum Period Indicator",
       :type       => :flag,
       :values     => %w(Y N),
       :group      => :person,

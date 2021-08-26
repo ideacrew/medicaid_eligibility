@@ -328,12 +328,12 @@ sub jsonApp {
 	    }
 	}	    
 
-	# Applicant Post Partum Period Indicator
+	# Applicant Postpartum Period Indicator
 	if (exists($apps{ $appId }{ $applicantId }{'Age in Days for Children Under 1 Year Old'})
 	    && ($apps{ $appId }{ $applicantId }{'Age in Days for Children Under 1 Year Old'} <= 60)) {
-	    $person{'Applicant Post Partum Period Indicator'} = 'Y';
+	    $person{'Applicant Postpartum Period Indicator'} = 'Y';
 	} else {
-	    $person{'Applicant Post Partum Period Indicator'} = 'N';
+	    $person{'Applicant Postpartum Period Indicator'} = 'N';
 	}	    
 
 	# Applicant Has 40 Title II Work Quarters

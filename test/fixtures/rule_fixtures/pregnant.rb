@@ -10,7 +10,7 @@ class PregnantFixture < MagiFixture
         test_name: "Pregnant - Applicant Pregnant",
         inputs: {
           "Applicant Pregnant Indicator" => "Y",
-          "Applicant Post Partum Period Indicator" => "N"
+          "Applicant Postpartum Period Indicator" => "N"
         },
         configs: {
           # none
@@ -24,7 +24,7 @@ class PregnantFixture < MagiFixture
         test_name: "Pregnant - Applicant Postpartum",
         inputs: {
           "Applicant Pregnant Indicator" => "N",
-          "Applicant Post Partum Period Indicator" => "Y"
+          "Applicant Postpartum Period Indicator" => "Y"
         },
         configs: {
           # none
@@ -38,7 +38,7 @@ class PregnantFixture < MagiFixture
         test_name: "Pregnant - Applicant Not Pregnant or Postpartum",
         inputs: {
           "Applicant Pregnant Indicator" => "N",
-          "Applicant Post Partum Period Indicator" => "N"
+          "Applicant Postpartum Period Indicator" => "N"
         },
         configs: {
           # none
@@ -51,7 +51,7 @@ class PregnantFixture < MagiFixture
       {
         test_name: "Bad Info - Inputs",
         inputs: {
-          "Applicant Post Partum Period Indicator" => "N"
+          "Applicant Postpartum Period Indicator" => "N"
         },
         configs: {
           # none
