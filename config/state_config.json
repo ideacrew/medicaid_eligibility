@@ -248,7 +248,7 @@
 
     "CHIP Targeted Low Income Child Group": "Y",
     
-    "CHIP Targeted Low Income Child Age High Threshold": 18,
+    "CHIP Targeted Low Income Child Age High Threshold": 17,
     "CHIP Targeted Low Income Child Age Low Threshold": 0,
      
 
@@ -283,8 +283,12 @@
             "threshold": 157
           },{
             "minimum": 6,
-            "maximum": 20,
+            "maximum": 18,
             "threshold": 157
+          },{
+            "minimum": 19,
+            "maximum": 20,
+            "threshold": 156
           }
         ]
       }
@@ -298,7 +302,7 @@
         "age": [
           {
             "minimum": 0,
-            "maximum": 18,
+            "maximum": 17,
             "threshold": 208
           }
         ]
