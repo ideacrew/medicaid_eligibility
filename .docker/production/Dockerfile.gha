@@ -3,7 +3,7 @@
 ############################################
 
 # https://github.com/docker-library/ruby/blob/09c6a1602c111cf0cc83bf1df3186a85314ce398/2.3/slim/Dockerfile
-FROM ruby:2.3.4-alpine as base
+FROM ruby:2.7.1-slim as base
 LABEL author="IdeaCrew"
 
 ENV USERNAME=mitc
@@ -19,6 +19,7 @@ ARG NODE_MAJOR=14
 RUN apt-get update -qq && \
     apt-get install -yq --no-install-recommends \
       curl \
+      gnupg \
     # Need to add gpg key first re: https://gist.github.com/opi/1dce5be10717183ccc03
     # Seems to be related to the version of Debian (jessie)
     && curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
