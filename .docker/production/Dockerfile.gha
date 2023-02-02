@@ -16,8 +16,8 @@ ENV BUNDLER_VERSION=$BUNDLER_VERSION
 
 ARG NODE_MAJOR=14
 
-RUN apt-get update -qq &&
-RUN  apt-get install -yq --no-install-recommends \
+RUN apt-get update -qq
+RUN apt-get install -yq --no-install-recommends \
       curl
 # Need to add gpg key first re: https://gist.github.com/opi/1dce5be10717183ccc03
 # Seems to be related to the version of Debian (jessie)
