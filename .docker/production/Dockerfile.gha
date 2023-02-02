@@ -30,8 +30,9 @@ RUN apt-get update -qq && \
 RUN apt-get update -qq \
     && apt-get -yq dist-upgrade \
     && apt-get install -y \
-      nodejs \
-    && apt-get clean \
+      nodejs
+
+RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
 
