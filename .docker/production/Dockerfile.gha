@@ -3,7 +3,8 @@
 ############################################
 
 # https://github.com/docker-library/ruby/blob/09c6a1602c111cf0cc83bf1df3186a85314ce398/2.3/slim/Dockerfile
-FROM ruby:2.3.4-slim as base
+#FROM ruby:2.3.4-slim as base
+FROM ghcr.io/ideacrew/medicaid_eligibility:base as base
 LABEL author="IdeaCrew"
 
 ENV USERNAME=mitc
