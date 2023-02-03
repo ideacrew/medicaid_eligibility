@@ -84,7 +84,7 @@ RUN set -ex \
 	&& cd / \
 	&& rm -r /usr/src/ruby \
 	\
-	&& gem update --system "$RUBYGEMS_VERSION" \
+	&& gem update --system --conservative "$RUBYGEMS_VERSION" \
 	&& gem install bundler --version "$BUNDLER_VERSION" --force \
 	&& rm -r /root/.gem/
 
