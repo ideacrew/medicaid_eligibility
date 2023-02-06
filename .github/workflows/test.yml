@@ -2,7 +2,7 @@ name: Test
 on: push
 
 jobs:
-  rspec:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,4 +22,4 @@ jobs:
           bundle install
       - name: run tests
         run: |
-          RAILS_ENV=test rake test
+          RAILS_ENV=test bundle exec rake test
