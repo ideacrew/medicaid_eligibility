@@ -51,12 +51,8 @@
         "FPL Per Person": 4720
       },
       "2023": {
-        "Base FPL": 14580,
-        "FPL Per Person": 5140
-      },
-      "2024": {
-        "Base FPL": 14580,
-        "FPL Per Person": 5140
+        "Base FPL": 13590,
+        "FPL Per Person": 4720
       }
     },
 
@@ -70,7 +66,7 @@
     "Option CHIPRA 214 Child Age Threshold": 21,
     "Option CHIPRA 214 Applies To": "01",
     "Option CHIPRA 214 CHIP Applies To": "01",
-
+    
     "Deprivation Requirement Retained": "N",
     "Option Caretaker Relative Relationship": "00",
     "Option Dependent Student": "N",
@@ -222,43 +218,43 @@
     "State Applies Seven Year Limit": "N",
 
     "Option CHIPRA 214 Applicable Program": "01",
-
+    
     "Option CHIPRA 214 Child Age Threshold": 19,
     "Option CHIPRA 214 Applies To": "01",
-
+    
     "Option CHIPRA 214 CHIP Applies To": "02",
-
-
+    
+    
 
     "Deprivation Requirement Retained": "N",
     "Option Caretaker Relative Relationship": "01",
     "Option Dependent Student": "Y",
-
-
+    
+    
     "Option Adult Group": "Y",
     "Option Young Adults": "Y",
     "Young Adult Age Threshold": 21,
     "Foster Care Age Threshold": 18,
     "In-State Foster Care Required": "Y",
     "State Offers Refugee Medical Assistance": "Y",
-
+    
     "Refugee Medical Assistance Income Requirement": "N",
-
-
-
+    
+    
+    
     "CHIP for Pregnant Women": "N",
     "Option Cover Unborn Child": "N",
     "CHIP for State Health Benefits": "01",
     "State CHIP Waiting Period": 3,
 
     "Optional Targeted Low Income Child Group": "N",
-
+    
 
     "CHIP Targeted Low Income Child Group": "Y",
-
+    
     "CHIP Targeted Low Income Child Age High Threshold": 18,
     "CHIP Targeted Low Income Child Age Low Threshold": 0,
-
+     
 
     "Medicaid Thresholds": {
       "Adult Group Category": {
@@ -276,7 +272,7 @@
         "method": "standard",
         "threshold": 209
       },
-
+      
       "Child Category": {
         "percentage": "Y",
         "method": "age",
@@ -303,7 +299,7 @@
     },
 
     "CHIP Thresholds": {
-
+      
       "CHIP Targeted Low Income Child": {
         "percentage": "Y",
         "method": "age",
@@ -315,7 +311,7 @@
           }
         ]
       }
-
+      
     }
   }
 }
