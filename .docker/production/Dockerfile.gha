@@ -3,13 +3,13 @@
 ############################################
 
 # https://github.com/docker-library/ruby/blob/09c6a1602c111cf0cc83bf1df3186a85314ce398/2.3/slim/Dockerfile
-#FROM ruby:2.3.4-slim as base
 FROM ghcr.io/ideacrew/medicaid_eligibility:base as base
 LABEL author="IdeaCrew"
 
 ENV USERNAME=mitc
 
 ARG DEBIAN_FRONTEND=noninteractive
+ENV RUBYGEMS_VERSION 2.5.2
 ARG BUNDLER_VERSION=1.17.3
 
 # Must be set as ENV variable to overrride the default
@@ -47,7 +47,7 @@ ENV LANG=C.UTF-8
 
 ENV PATH=$HOME/bin:$BUNDLE_BIN:$GEM_HOME/gems/bin:$PATH
 
-RUN gem install rubygems-update -v 2.5.2 \
+RUN gem install rubygems-update -v $RUBYGEMS_VERSION \
     && update_rubygems \
     && gem update --system \
     && rm -f /usr/local/bin/ruby/gems/*/specifications/default/bundler-*.gemspec \

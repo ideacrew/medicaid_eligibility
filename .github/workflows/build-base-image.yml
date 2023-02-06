@@ -7,11 +7,6 @@ on:
       - "trunk"
     paths:
       - ".docker/base/**"
-  pull_request:
-    branches:
-      - "trunk"
-    paths:
-      - ".docker/base/**"
 
 concurrency:
   group: base-${{ github.ref }}
