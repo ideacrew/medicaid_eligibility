@@ -24,10 +24,8 @@ RUN apt-get update -qq && \
     # Need to add gpg key first re: https://gist.github.com/opi/1dce5be10717183ccc03
     # Seems to be related to the version of Debian (jessie)
     && curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
-    && curl -fsSL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
-
-
-RUN apt-get update -qq \
+    && curl -fsSL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash - \
+    && apt-get update -qq \
     && apt-get -yq dist-upgrade \
     && apt-get install -y \
       nodejs \
@@ -35,7 +33,6 @@ RUN apt-get update -qq \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
 
-#RUN apt-get update && apt-get install wget gnupg software-properties-common dirmngr -y
 
 # Configure bundler and PATH, install bundler version
 ENV GEM_HOME=/usr/local/bundle
