@@ -33,7 +33,6 @@ RUN apt-get update -qq && \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
 
-
 # Configure bundler and PATH, install bundler version
 ENV GEM_HOME=/usr/local/bundle
 ENV BUNDLE_PATH=$GEM_HOME
