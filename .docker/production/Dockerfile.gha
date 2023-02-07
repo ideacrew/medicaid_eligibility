@@ -113,4 +113,3 @@ COPY --chown=$USERNAME:$USERNAME . $HOME
 COPY --chown=$USERNAME:$USERNAME --from=prod_gems_and_assets $HOME/public $HOME/public
 
 USER $USERNAME
-

@@ -46,7 +46,6 @@ jobs:
           echo ::set-output name=branch_name::${{ env.GIT_BRANCH_NAME }}
           echo ::set-output name=repository_name::$REPO
           echo ::set-output name=latest_tag::${IMAGE}:latest
-
   # Uses buildx to build and push the image
   build-and-upload-image:
     needs: [prep]
@@ -70,7 +69,6 @@ jobs:
           key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-multi-buildx
-
       # Provide credentials for AWS
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -131,7 +129,6 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
   notify-slack:
     if: github.event_name != 'pull_request'
     needs: [prep, build-and-upload-image]
