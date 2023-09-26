@@ -1,11 +1,22 @@
 FROM debian:buster
+# These first run commands will add the stretch repo to the sources list
+# So libssl1.0-dev can be installed, which is required for ruby < 2.4
+RUN { \
+		echo "deb http://archive.debian.org/debian-security stretch/updates main"; \
+		echo "deb-src http://archive.debian.org/debian-security stretch/updates main"; \
+	} >> /etc/apt/sources.list.d/stretch.list
 
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
+RUN mkdir -p /etc/apt/apt.conf.d
+
+RUN echo "APT::Default-Release 'buster'"; >> /etc/apt/apt.conf.d/default-release
+
+RUN apt-get update && apt-cache policy libssl1.0-dev
+
+RUN apt-get install -y --no-install-recommends \
 		bzip2 \
 		ca-certificates \
 		libffi-dev \
-		libgdbm3 \
+		libgdbm-compat4 \
 		libssl1.0-dev \
 		libyaml-dev \
 		procps \
