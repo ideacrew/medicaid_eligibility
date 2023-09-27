@@ -1,7 +1,7 @@
 ############################################
 ### Base image ###
 ############################################
-FROM debian:buster
+FROM debian:buster AS base
 LABEL author="IdeaCrew"
 
 # These first run commands will add the stretch repo to the sources list
