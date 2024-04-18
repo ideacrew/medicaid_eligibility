@@ -225,5 +225,6 @@ COPY --chown=$USERNAME:$USERNAME . $HOME
 # Copy prebuilt assets
 COPY --chown=$USERNAME:$USERNAME --from=prod_gems_and_assets $HOME/public $HOME/public
 
-USER $USERNAME
+RUN echo '[ ! -z "$TERM" -a -r /etc/scripts/motd/motd ] && cat /etc/scripts/motd/motd' >> /etc/bash.bashrc
 
+USER $USERNAME
