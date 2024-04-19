@@ -104,6 +104,8 @@ RUN set -ex \
   && gem install bundler --version "$BUNDLER_VERSION" --force \
   && rm -r /root/.gem/
 
+RUN mkdir /etc/infra
+
 # install things globally, for great justice
 # and don't create ".bundle" in all our apps
 ENV GEM_HOME /usr/local/bundle
@@ -114,8 +116,6 @@ ENV BUNDLE_PATH="$GEM_HOME" \
 ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
 # adjust permissions of a few directories for running "gem install" as an arbitrary user
 RUN mkdir -p "$GEM_HOME" && chmod 777 "$GEM_HOME"
-
-
 
 ENV USERNAME=mitc
 
@@ -225,6 +225,6 @@ COPY --chown=$USERNAME:$USERNAME . $HOME
 # Copy prebuilt assets
 COPY --chown=$USERNAME:$USERNAME --from=prod_gems_and_assets $HOME/public $HOME/public
 
-RUN echo '[ ! -z "$TERM" -a -r /etc/scripts/motd/motd ] && cat /etc/scripts/motd/motd' >> /etc/bash.bashrc
+RUN echo '[ ! -z "$TERM" -a -r /etc/infra/motd ] && cat /etc/infra/motd' >> /etc/bash.bashrc
 
 USER $USERNAME
