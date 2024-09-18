@@ -268,17 +268,17 @@
       "Adult Group Category": {
         "percentage": "Y",
         "method": "standard",
-        "threshold": 138
+        "threshold": 133
       },
       "Parent Caretaker Category": {
         "percentage": "Y",
         "method": "standard",
-        "threshold": 105
+        "threshold": 100
       },
       "Pregnancy Category": {
         "percentage": "Y",
         "method": "standard",
-        "threshold": 214
+        "threshold": 209
       },
 
       "Child Category": {
@@ -288,7 +288,7 @@
           {
             "minimum": 0,
             "maximum": 20,
-            "threshold": 305
+            "threshold": 300
           }
         ]
       }
