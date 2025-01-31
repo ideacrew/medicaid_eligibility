@@ -59,8 +59,12 @@
         "FPL Per Person": 5380
       },
       "2025": {
-        "Base FPL": 15060,
-        "FPL Per Person": 5380
+        "Base FPL": 15650,
+        "FPL Per Person": 5500
+      },
+      "2026": {
+        "Base FPL": 15650,
+        "FPL Per Person": 5500
       }
     },
 
