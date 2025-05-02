@@ -153,7 +153,7 @@ jobs:
 
       - name: Upload anchore scan SARIF report
         if: github.event_name != 'pull_request'
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
 
