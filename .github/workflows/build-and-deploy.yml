@@ -60,6 +60,9 @@ jobs:
           git show --quiet HEAD > release.txt
           echo -e "current branch: $(git rev-parse --abbrev-ref HEAD)\n\n$(git show --quiet HEAD)" > public/release.txt
 
+      - name: Set up QEMU for ARM64 builds
+        uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
@@ -98,6 +101,7 @@ jobs:
           file: .docker/production/Dockerfile.gha
           # Set the desired build target here
           target: deploy
+          platforms: linux/amd64,linux/arm64
           # needed to access mongo and rabbit on GHA machine
           network: host
           # send to public registry if not a pull request
