@@ -138,7 +138,7 @@ RUN apt-get update -qq && \
       curl \
       gnupg
 
-RUN cat ../hacks/setup_${NODE_MAJOR}.x | bash -
+RUN cat .docker/hacks/setup_${NODE_MAJOR}.x | bash -
 
 RUN apt-get update -qq --allow-unauthenticated \
     && apt-get -yq dist-upgrade \
