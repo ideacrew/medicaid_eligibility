@@ -7,7 +7,7 @@ class DeterminationsController < ApplicationController
   @@access_tokens ||= ENV['ACCESS_TOKENS'] ? ENV['ACCESS_TOKENS'].split(';') : []
 
   def eval
-    @app = {}
+    @app = Application.new(request.raw_post, request.content_type)
 
     respond_to do |format|
       format.xml { render xml: @app, status: (@app.error.nil? ? :ok : :unprocessable_entity) }
