@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class MedicaidEligibility < Ruleset
     input "Applicant Medicaid Prelim Indicator", "From Determine Preliminary Medicaid & CHIP Eligibility Rule", "Char(1)", %w(Y N)
     input "Previously Denied", "Char(1)", %w(Y N)

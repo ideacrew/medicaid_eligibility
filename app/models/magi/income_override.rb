@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class IncomeOverride < Ruleset
     input "Applicant Title II Work Quarters Met Indicator", "From 40 Title II Work Quarters logic", "Char(1)", %w(Y N X)
     input "Calculated Income", "From Income logic", "Number"

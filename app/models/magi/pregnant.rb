@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class Pregnant < Ruleset
     input "Applicant Pregnant Indicator", "Application", "Char(1)", %w(Y N)
     input "Applicant Post Partum Period Indicator", "From Pregnant Woman Category Logic", "Char(1)", %w(Y N)

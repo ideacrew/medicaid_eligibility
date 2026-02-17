@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class OptionalTargetedLowIncomeChildren < Ruleset
     input "Applicant Age", "From Child Category Rule", "Number"
     input "Has Insurance", "Application", "Char(1)", %w(Y N)

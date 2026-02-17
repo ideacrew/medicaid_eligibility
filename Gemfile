@@ -1,23 +1,26 @@
 source 'https://rubygems.org'
-ruby '~> 2.3.0'
+ruby '~> 3.4.2'
 
-gem 'rails', '~> 4.0'
+gem 'rails', '7.2'
+# Use Puma as the app server
+gem 'puma', '~> 6.0'
 gem 'newrelic_rpm'
-gem 'rails-api'
 gem 'activerecord-nulldb-adapter'
-gem 'active_model_serializers', '~> 0.8.0'
+gem 'active_model_serializers', '~> 0.10.15'
 gem 'font-awesome-rails'
-gem 'uglifier', '~> 2.7.2'
-gem 'gon'
-gem 'httparty', '~> 0.10.0'
+gem 'gon', '~> 6.4'
+gem 'httparty', '~> 0.21.0'
 gem 'rails_12factor'
 
-# Use unicorn as the app server
-gem 'unicorn'
+gem 'propshaft'
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'
+
+gem "csv", require: false
 
 group :development do
-  gem 'rails_best_practices', require: false
-  gem 'brakeman', require: false
+  gem 'rails_best_practices', '>= 1.23', require: false
+  gem 'brakeman', '4.8.2', require: false
   gem 'rubocop', require: false
   gem 'bundler-audit', require: false
   # Deploy with Capistrano
@@ -30,7 +33,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'minitest-rails', '~> 1.0'
+  gem 'minitest-rails', '~> 7.0'
   gem 'minitest-reporters'
   # gem 'mini_backtrace'
 end
@@ -38,3 +41,7 @@ end
 # fixing a few travisCI complaints
 gem 'rake', group: :test
 gem 'test-unit'
+
+group :production do
+  gem 'unicorn', '~> 6.1'
+end

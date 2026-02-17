@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class ReferralType < Ruleset
     input "Applicant Age", "From Child Category Rule", "Number"
     input "Applicant Attest Blind or Disabled", "From application", "Char(1)", %w(Y N)

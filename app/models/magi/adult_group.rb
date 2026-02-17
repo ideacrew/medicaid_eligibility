@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class AdultGroup < Ruleset
     input "Medicare Entitlement Indicator", "From the Hub", "Char(1)", %w(Y N) 
     input "Applicant Pregnancy Category Indicator", "Output from the Pregnant Women Category Rule", "Char(1)", %w(Y N)

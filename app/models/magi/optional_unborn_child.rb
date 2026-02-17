@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class OptionalUnbornChild < Ruleset
     input "Applicant Pregnant Indicator", "Application", "Char(1)", %w(Y N)
     input "Applicant Medicaid Prelim Indicator", "Output from Prelim Medicaid Eligible Rule", "Char(1)", %w(Y N)

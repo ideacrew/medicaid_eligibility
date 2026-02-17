@@ -18,7 +18,7 @@ class Application
     @error = nil
 
     begin
-      if content_type == 'application/json'
+      if content_type == 'application/json' || content_type == 'application/json;charset=UTF-8'
         @json_application = JSON.parse(raw_application)
         read_json!
       elsif content_type == 'application/xml'

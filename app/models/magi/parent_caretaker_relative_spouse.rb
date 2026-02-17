@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class ParentCaretakerRelativeSpouse < Ruleset
     input "Applicant Relationships", "Application", "List"
     input "Physical Household", "Application", "List"
