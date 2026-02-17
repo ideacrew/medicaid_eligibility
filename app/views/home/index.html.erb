@@ -4,7 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8">
     <title>MAGI in the Cloud</title>
-    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", type: "module" %>
     <%= include_gon %>
   </head>
   <body>
@@ -20,6 +21,12 @@
   </script>
   <div ng-view></div>
 
-  <%= javascript_include_tag "application" %>
+  <div
+    id='asset-helpers'
+    data-form-url = <%= asset_path "form.html" %>
+    data-results-url = <%= asset_path "results.html" %>
+    data-exportimport-url = <%= asset_path "exportimport.html" %>
+    data-exportraw-url = <%= asset_path "exportraw.html" %>
+  ></div>
   </body>
 </html>

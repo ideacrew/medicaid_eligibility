@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
-module MAGI
-  class PreliminaryCHIP < Ruleset
+module Magi
+  class PreliminaryChip < Ruleset
     input "Medicaid Residency Indicator", "From Residency Logic", "Char(1)", %w(Y N)
     input "Applicant CHIP Citizen Or Immigrant Indicator", "From Immigration Status rule in MAGI Part 2", "Char(1)", %w(Y N)
     input "Applicant Income CHIP Eligible Indicator", "From Verify Household Income Rule", "Char(1)", %w(Y N)

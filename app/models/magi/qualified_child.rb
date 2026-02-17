@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class QualifiedChild < Ruleset
     input "Caretaker Age", "Application", "Integer"
     input "Child Age", "Application", "Integer"

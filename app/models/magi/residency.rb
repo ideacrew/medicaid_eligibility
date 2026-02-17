@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class Residency < Ruleset
     input "Lives In State", "From Application", "Char(1)", %w(Y N)
     input "No Fixed Address", "From Application", "Char(1)", %w(Y N)

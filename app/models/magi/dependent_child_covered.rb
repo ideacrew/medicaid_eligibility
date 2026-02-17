@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class DependentChildCovered < Ruleset
     input "Applicant List", "Application", "List"
     input "Person List", "Application", "List"

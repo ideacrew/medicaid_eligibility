@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class Immigration < Ruleset
     input "Person ID", "Application", "Integer"
     input "US Citizen Indicator", "Application", "Char(1)", %w(Y N)

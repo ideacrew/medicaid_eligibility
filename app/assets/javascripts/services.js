@@ -1,6 +1,6 @@
 angular.module('MAGI.services',[]).
     factory('Application', ['$http','$log','relationshipCodes','states','$location', function($http,$log,relationshipCodes,states,$location){
-    applicant_ids = 0;
+    var applicant_ids = 0;
 
     function Application(){
       this.applicants = [];
@@ -175,7 +175,7 @@ angular.module('MAGI.services',[]).
 
     Application.prototype.clearResponsibility = function(dependent) {
       angular.forEach(this.applicants, function(applicant) {
-        rel = applicant.getRelationship(dependent);
+        var rel = applicant.getRelationship(dependent);
         if (rel) {
           applicant.getRelationship(dependent).primaryResponsibility = false;
         }

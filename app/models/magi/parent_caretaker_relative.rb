@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class ParentCaretakerRelative < Ruleset
     input "Person ID", "Application", "Integer"
     input "Person List", "Application", "List"

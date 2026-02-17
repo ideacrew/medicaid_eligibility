@@ -1,151 +1,51 @@
 ############################################
 ### Base image ###
 ############################################
-FROM debian:bullseye-slim AS base
-LABEL author="IdeaCrew"
-
-# These first run commands will add the stretch repo to the sources list
-# So libssl1.0-dev can be installed, which is required for ruby < 2.4
-RUN { \
-  echo "deb http://archive.debian.org/debian-security stretch/updates main"; \
-  echo "deb-src http://archive.debian.org/debian-security stretch/updates main"; \
-  } >> /etc/apt/sources.list.d/stretch.list
-
-RUN mkdir -p /etc/apt/apt.conf.d
-
-RUN echo "APT::Default-Release 'buster'"; >> /etc/apt/apt.conf.d/default-release
-
-RUN apt-get update && apt-cache policy libssl1.0-dev
-
-RUN apt-get install -y --no-install-recommends \
-  bzip2 \
-  ca-certificates \
-  libffi-dev \
-  libgdbm-compat4 \
-  libssl1.0-dev \
-  libyaml-dev \
-  procps \
-  zlib1g-dev \
-  && rm -rf /var/lib/apt/lists/*
-
-# skip installing gem documentation
-RUN mkdir -p /usr/local/etc \
-  && { \
-  echo 'install: --no-document'; \
-  echo 'update: --no-document'; \
-  } >> /usr/local/etc/gemrc
-
-ENV RUBY_MAJOR 2.3
-ENV RUBY_VERSION 2.3.4
-ENV RUBY_DOWNLOAD_SHA256 341cd9032e9fd17c452ed8562a8d43f7e45bfe05e411d0d7d627751dd82c578c
-ENV RUBYGEMS_VERSION 2.5.2
-ENV BUNDLER_VERSION 1.17.3
-
-# some of ruby's build scripts are written in ruby
-#   we purge system ruby later to make sure our final image uses what we just built
-RUN set -ex \
-  \
-  && buildDeps=' \
-  autoconf \
-  bison \
-  dpkg-dev \
-  gcc \
-  libbz2-dev \
-  libgdbm-dev \
-  libglib2.0-dev \
-  libncurses-dev \
-  libreadline-dev \
-  libxml2-dev \
-  libxslt-dev \
-  make \
-  ruby \
-  wget \
-  xz-utils \
-  ' \
-  && apt-get update \
-  && apt-get install -y --no-install-recommends $buildDeps \
-  && rm -rf /var/lib/apt/lists/* \
-  \
-  && wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
-  && echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
-  \
-  && mkdir -p /usr/src/ruby \
-  && tar -xJf ruby.tar.xz -C /usr/src/ruby --strip-components=1 \
-  && rm ruby.tar.xz \
-  \
-  && cd /usr/src/ruby \
-  \
-  # hack in "ENABLE_PATH_CHECK" disabling to suppress:
-  #   warning: Insecure world writable dir
-  && { \
-  echo '#define ENABLE_PATH_CHECK 0'; \
-  echo; \
-  cat file.c; \
-  } > file.c.new \
-  && mv file.c.new file.c \
-  \
-  && autoconf \
-  && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
-  && ./configure \
-  --build="$gnuArch" \
-  --disable-install-doc \
-  --enable-shared \
-  && make -j "$(nproc)" \
-  && make install \
-  \
-  && dpkg-query --show --showformat '${package}\n' \
-  | grep -P '^libreadline\d+$' \
-  | xargs apt-mark manual \
-  && apt-get purge -y --auto-remove $buildDeps \
-  && cd / \
-  && rm -r /usr/src/ruby \
-  \
-  && gem update --system "$RUBYGEMS_VERSION" --force \
-  && gem install bundler --version "$BUNDLER_VERSION" --force \
-  && rm -r /root/.gem/
-
-RUN mkdir /etc/infra
-
-# install things globally, for great justice
-# and don't create ".bundle" in all our apps
-ENV GEM_HOME /usr/local/bundle
-ENV BUNDLE_PATH="$GEM_HOME" \
-  BUNDLE_SILENCE_ROOT_WARNING=1 \
-  BUNDLE_APP_CONFIG="$GEM_HOME"
-# path recommendation: https://github.com/bundler/bundler/pull/6469#issuecomment-383235438
-ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
-# adjust permissions of a few directories for running "gem install" as an arbitrary user
-RUN mkdir -p "$GEM_HOME" && chmod 777 "$GEM_HOME"
+ARG RUBY_VERSION=3.4.2
+FROM ruby:$RUBY_VERSION-slim-bookworm as base
+LABEL author="DCHBX"
 
 ENV USERNAME=mitc
 
 ARG DEBIAN_FRONTEND=noninteractive
-ENV RUBYGEMS_VERSION 2.5.2
-ARG BUNDLER_VERSION=1.17.3
+
+ARG BUNDLER_VERSION=2.4.19
 
 # Must be set as ENV variable to overrride the default
 ENV BUNDLER_VERSION=$BUNDLER_VERSION
 
-ARG NODE_MAJOR=14
+RUN apt-get update -qq && \
+    apt-get install -yq --no-install-recommends \
+      curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && truncate -s 0 /var/log/*log
 
-    # Need to add gpg key first re: https://gist.github.com/opi/1dce5be10717183ccc03
-    # Seems to be related to the version of Debian (jessie)
-# RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
-#     && curl -fsSL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
+ARG NODE_MAJOR=20
 
-# RUN apt-get update -qq && \
-#     apt-get install -yq --no-install-recommends \
-#       curl \
-#       gnupg
+# Add NodeJS to sources list
+RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
 
-RUN cat .docker/hacks/setup_${NODE_MAJOR}.x | bash -
-
-RUN apt-get update -qq --allow-unauthenticated \
+RUN apt-get update \
     && apt-get -yq dist-upgrade \
-    && apt-get install -y --no-install-recommends --allow-unauthenticated \
-      nodejs
-
-RUN apt-get clean \
+    && apt-get install -y \
+      fontconfig \
+      libffi-dev \
+      libsodium23 \
+      libxext6 \
+      libxrender1 \
+      libyaml-cpp-dev \
+      nodejs \
+      default-jre \
+      openssl \
+      ruby-dalli \
+      sshpass \
+      unzip \
+      zip \
+      zlib1g \
+      libyaml-dev \
+      libjemalloc2 \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
 
@@ -159,50 +59,74 @@ ENV BUNDLE_RETRY=3
 
 ENV LANG=C.UTF-8
 
+ENV HOME=/mitc
+
 ENV PATH=$HOME/bin:$BUNDLE_BIN:$GEM_HOME/gems/bin:$PATH
 
-RUN gem install rubygems-update -v $RUBYGEMS_VERSION \
-    && update_rubygems \
-    && gem update --system \
-    && rm -f /usr/local/bin/ruby/gems/*/specifications/default/bundler-*.gemspec \
-    && gem install bundler -v $BUNDLER_VERSION
+# RUN gem update --system
+RUN rm -f /usr/local/bin/ruby/gems/*/specifications/default/bundler-*.gemspec
+RUN gem install bundler -v $BUNDLER_VERSION
 
 RUN groupadd --gid 1001 $USERNAME \
   && useradd --uid 1001 --gid $USERNAME --shell /bin/bash --create-home $USERNAME
 
-ENV HOME=/mitc
 RUN mkdir $HOME \
   && chown -R $USERNAME:$USERNAME $HOME
 
 # Configure app home directory
 WORKDIR $HOME
 
-ENV RECEIVER_ID=000000001
-
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
 
 ###############################################################################
-## Builder. Adds node and Yarn. Not necessary in production. ###
-##############################################################################
+###       Builder. Adds node and Yarn. Not necessary in production.         ###
+###############################################################################
+
 FROM base as builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Add Yarn to the sources list
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+# Install Nodejs & Yarn
 RUN apt-get update -qq \
   && apt-get install -yq --no-install-recommends \
     build-essential \
+    git \
+    libpq-dev \
+    yarn \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
 
 ########################################################
-# Node and Bundle for production
+###          Node and Bundle for production          ###
 ########################################################
+
 FROM builder as prod_gems_and_assets
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ARG HOSTNAME=localhost
+
+COPY --chown=$USERNAME:$USERNAME package.json $HOME/
+COPY --chown=$USERNAME:$USERNAME yarn.lock $HOME/
+
+RUN yarn install \
+  && (rm -rf /tmp/* || true)
 
 COPY --chown=$USERNAME:$USERNAME ./Gemfile $HOME/Gemfile
 COPY --chown=$USERNAME:$USERNAME ./Gemfile.lock $HOME/Gemfile.lock
+
+RUN apt-get update -qq \
+  && apt-get install -yq --no-install-recommends \
+  shared-mime-info \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
 
 RUN bundle config set --local without 'development test' \
   && bundle install
@@ -210,12 +134,16 @@ RUN bundle config set --local without 'development test' \
 COPY --chown=$USERNAME:$USERNAME . $HOME
 
 RUN bundle exec rake assets:precompile \
-  # https://github.com/rubygems/rubygems/issues/3225
-  && rm -rf $GEM_HOME/bundle/ruby/*/cache
+  && yarn cache clean \
+  && (rm -rf /tmp/* || true) \
+  # Cleanup
+  && rm -rf $BUNDLE_PATH/*.gem \
+  && find $BUNDLE_PATH/ruby -name "*.c" -delete \
+  && find $BUNDLE_PATH/ruby -name "*.o" -delete \
+  && find $BUNDLE_PATH/ruby -name ".git"  -type d -prune -execdir rm -rf {} +
 
-################################################################
-# Deployable image
-################################################################
+# https://github.com/rubygems/rubygems/issues/3225
+RUN rm -rf $GEM_HOME/bundle/ruby/*/cache
 
 FROM base as deploy
 
@@ -228,6 +156,6 @@ COPY --chown=$USERNAME:$USERNAME . $HOME
 # Copy prebuilt assets
 COPY --chown=$USERNAME:$USERNAME --from=prod_gems_and_assets $HOME/public $HOME/public
 
-RUN echo '[ ! -z "$TERM" -a -r /etc/infra/motd ] && cat /etc/infra/motd' >> /etc/bash.bashrc
-
 USER $USERNAME
+
+ENTRYPOINT ["bin/docker-entrypoint"]

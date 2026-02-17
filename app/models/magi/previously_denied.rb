@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class PreviouslyDenied < Ruleset
     input "Previously Denied", "From Previous Determination", "Char(1)", %w(Y N)
 

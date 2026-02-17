@@ -2,7 +2,7 @@
 
 include IncomeThreshold
 
-module MAGI
+module Magi
   class RefugeeAssistance < Ruleset
     input "Person ID", "Application", "Integer"
     input "Refugee Status", "Application", "Char(1)", %w(Y N)
