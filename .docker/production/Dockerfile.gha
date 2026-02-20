@@ -1,7 +1,13 @@
 ############################################
 ### Base image ###
 ############################################
-FROM debian:bullseye-slim AS base
+# FROM debian:bullseye-slim AS base
+
+# cross-compilation: expose buildkit platform args for FROM
+ARG BUILDPLATFORM
+ARG TARGETPLATFORM
+FROM --platform=$BUILDPLATFORM debian:bullseye-slim AS base
+
 LABEL author="IdeaCrew"
 
 # These first run commands will add the stretch repo to the sources list
