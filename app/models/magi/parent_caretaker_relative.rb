@@ -66,7 +66,7 @@ module Magi
       children.uniq!
 
       # Run all children through the QualifiedChild rule
-      qualified_child_rule = MAGI::QualifiedChild.new()
+      qualified_child_rule = Magi::QualifiedChild.new()
       child_list = []
       for child in children
         child_input = {
