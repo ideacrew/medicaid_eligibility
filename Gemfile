@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 ruby '~> 3.4.2'
 
-gem 'rails', '7.2'
+gem 'rails', '~> 7.2', '>= 7.2.2'
+
 # Use Puma as the app server
 gem 'puma', '~> 6.0'
 gem 'newrelic_rpm'

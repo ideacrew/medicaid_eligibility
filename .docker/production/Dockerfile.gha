@@ -2,14 +2,19 @@
 ### Base image ###
 ############################################
 ARG RUBY_VERSION=3.4.2
-FROM ruby:$RUBY_VERSION-slim-bookworm as base
+
+# cross-compilation: expose BuildKit platform args for FROM
+ARG BUILDPLATFORM
+ARG TARGETPLATFORM
+FROM --platform=$BUILDPLATFORM ruby:$RUBY_VERSION-slim-bookworm as base
+
 LABEL author="DCHBX"
 
 ENV USERNAME=mitc
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG BUNDLER_VERSION=2.6.2
+ARG BUNDLER_VERSION=2.4.19
 
 # Must be set as ENV variable to overrride the default
 ENV BUNDLER_VERSION=$BUNDLER_VERSION
