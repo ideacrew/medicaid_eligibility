@@ -1,10 +1,26 @@
-ENV["RAILS_ENV"] = "test"
-require File.expand_path('../../config/environment', __FILE__)
+ENV['RAILS_ENV'] = 'test'
+require File.expand_path('../config/environment', __dir__)
+
+# Disable migration checks for nulldb adapter in test environment
+# nulldb doesn't have actual migrations since there's no real database
+ActiveRecord::Migration.class_eval do
+  def self.check_pending!(connection = nil)
+    # No-op for nulldb adapter in test environment
+  end
+end
+
 require 'rails/test_help'
 require 'minitest/reporters'
 require 'minitest/spec'
 Minitest::Reporters.use!
 ActiveRecord::Base.logger.level = 1
+
+# Disable migration checks for nulldb adapter
+begin
+  ActiveRecord::Migration.check_pending!
+rescue StandardError
+  nil
+end
 
 class ActiveSupport::TestCase
   Rails.backtrace_cleaner.remove_silencers! # for messier errors
@@ -18,26 +34,26 @@ class ActiveSupport::TestCase
 
   # def self.reload_fixtures
   #   @@fixtures = []
-   #  Dir.glob(Rails.root.to_s + '/test/fixtures/*.json') do |file|
-   #    # puts 'loading ' + file
-   #    json = File.read(file).to_s
-   #    response = Application.new(json, 'application/json').to_json
-   #    @@fixtures << {name: file.gsub(/\.json/,'').gsub(/#{Rails.root.to_s}\/test\/fixtures\//,''), application: JSON.parse(json), application_raw: json, response: JSON.parse(response)}
-   #  end
-  # end  
+  #  Dir.glob(Rails.root.to_s + '/test/fixtures/*.json') do |file|
+  #    # puts 'loading ' + file
+  #    json = File.read(file).to_s
+  #    response = Application.new(json, 'application/json').to_json
+  #    @@fixtures << {name: file.gsub(/\.json/,'').gsub(/#{Rails.root.to_s}\/test\/fixtures\//,''), application: JSON.parse(json), application_raw: json, response: JSON.parse(response)}
+  #  end
+  # end
 
   # # reload an individual fixture
   # def self.reload_fixture(fixture_name)
-  #   Dir.glob(Rails.root.to_s + "/test/fixtures/#{fixture_name}.json") do |file| 
-   #    puts 'loading ' + file
-   #    json = File.read(file).to_s
-   #    response = Application.new(json, 'application/json').to_json
-   #    @@fixtures[@@fixtures.find_index { |f| f[:name] == fixture_name }] = {name: file.gsub(/\.json/,'').gsub(/#{Rails.root.to_s}\/test\/fixtures\//,''), application: JSON.parse(json), application_raw: json, response: JSON.parse(response)}
-   #    p @@fixtures[@@fixtures.find_index { |f| f[:name] == fixture_name }][:application]['State']
-   #  end
+  #   Dir.glob(Rails.root.to_s + "/test/fixtures/#{fixture_name}.json") do |file|
+  #    puts 'loading ' + file
+  #    json = File.read(file).to_s
+  #    response = Application.new(json, 'application/json').to_json
+  #    @@fixtures[@@fixtures.find_index { |f| f[:name] == fixture_name }] = {name: file.gsub(/\.json/,'').gsub(/#{Rails.root.to_s}\/test\/fixtures\//,''), application: JSON.parse(json), application_raw: json, response: JSON.parse(response)}
+  #    p @@fixtures[@@fixtures.find_index { |f| f[:name] == fixture_name }][:application]['State']
+  #  end
   # end
 
-  # reload_fixtures 
+  # reload_fixtures
 end
 
 def load_fixtures
@@ -46,17 +62,19 @@ def load_fixtures
     # puts 'loading ' + file
     json = File.read(file).to_s
     response = Application.new(json, 'application/json').to_json
-    fixtures << {name: file.gsub(/\.json/,'').gsub(/#{Rails.root.to_s}\/test\/fixtures\//,''), application: JSON.parse(json), application_raw: json, response: JSON.parse(response)}
+    fixtures << { name: file.gsub(/\.json/, '').gsub(%r{#{Rails.root}/test/fixtures/}, ''),
+                  application: JSON.parse(json), application_raw: json, response: JSON.parse(response) }
   end
-  return fixtures
+  fixtures
 end
 
-def reload_fixture(fixture_name, run_fixture=true)
+def reload_fixture(fixture_name, run_fixture = true)
   fixture = {}
-  Dir.glob(Rails.root.to_s + "/test/fixtures/#{fixture_name}.json") do |file| 
+  Dir.glob(Rails.root.to_s + "/test/fixtures/#{fixture_name}.json") do |file|
     # puts 'loading ' + file
     json = File.read(file).to_s
-    fixture = {name: file.gsub(/\.json/,'').gsub(/#{Rails.root.to_s}\/test\/fixtures\//,''), application: JSON.parse(json), application_raw: json}
+    fixture = { name: file.gsub(/\.json/, '').gsub(%r{#{Rails.root}/test/fixtures/}, ''),
+                application: JSON.parse(json), application_raw: json }
     if run_fixture
       result = Application.new(json, 'application/json')
       fixture[:result] = result
@@ -64,18 +82,18 @@ def reload_fixture(fixture_name, run_fixture=true)
       fixture[:response] = JSON.parse(response)
     end
   end
-  return fixture 
+  fixture
 end
 
 class MagiFixture
-	include ApplicationComponents
-	attr_accessor :magi, :test_sets
+  include ApplicationComponents
+  attr_accessor :magi, :test_sets
 
-	def magi
-		@magi = ""
-	end
+  def magi
+    @magi = ''
+  end
 
-	def test_sets
-		@test_sets = []
-	end
+  def test_sets
+    @test_sets = []
+  end
 end

@@ -1,7 +1,7 @@
 ############################################
 ### Base image ###
 ############################################
-ARG RUBY_VERSION=3.4.2
+ARG RUBY_VERSION=3.4.7
 
 # cross-compilation: expose BuildKit platform args for FROM
 ARG BUILDPLATFORM
@@ -14,7 +14,7 @@ ENV USERNAME=mitc
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG BUNDLER_VERSION=2.4.19
+ARG BUNDLER_VERSION=2.6.9
 
 # Must be set as ENV variable to overrride the default
 ENV BUNDLER_VERSION=$BUNDLER_VERSION

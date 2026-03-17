@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '~> 3.4.2'
+ruby '~> 3.4.7'
 
-gem 'rails', '~> 7.2', '>= 7.2.2'
+gem 'rails', '~> 8.1.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 6.0'
@@ -34,7 +34,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'minitest-rails', '~> 7.0'
+  gem 'minitest-rails', '~> 8.1'
   gem 'minitest-reporters'
   # gem 'mini_backtrace'
 end
