@@ -31,7 +31,7 @@ angular.module('MAGI.controllers', ['ngCookies']).
           if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) {
             $location.path("/exportraw");
           } else {
-            applicationJson = angular.toJson(Application.serialize(), true);
+            var applicationJson = angular.toJson(Application.serialize(), true);
 
             var a = window.document.createElement('a');
             a.href = window.URL.createObjectURL(new Blob([applicationJson], {type: 'application/json'}));
@@ -196,7 +196,7 @@ angular.module('MAGI.controllers', ['ngCookies']).
           if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) {
             $location.path("/exportraw");
           } else {
-            applicationJson = angular.toJson(Application.serialize(), true) + "\n\n" + angular.toJson(Application.determination, true);
+            var applicationJson = angular.toJson(Application.serialize(), true) + "\n\n" + angular.toJson(Application.determination, true);
 
             var a = window.document.createElement('a');
             a.href = window.URL.createObjectURL(new Blob([applicationJson], {type: 'application/json'}));

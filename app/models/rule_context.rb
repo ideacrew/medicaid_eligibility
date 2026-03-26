@@ -1,5 +1,4 @@
 class RuleContext
-  include ActiveModel::SerializerSupport
   extend ActiveModel::Naming
 
   attr_reader :config, :input, :output, :current_date

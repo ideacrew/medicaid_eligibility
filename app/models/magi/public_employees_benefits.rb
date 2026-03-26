@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class PublicEmployeesBenefits < Ruleset
     input "State Health Benefits Through Public Employee", "Application", "Char(1)", %w(Y N)
     input "Calculated Income", "Income logic", "Numeric"

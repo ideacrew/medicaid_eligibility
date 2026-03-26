@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class Child < Ruleset
     input "Applicant Age", "Calculated in Create Applicant Child List logic", "Number"
 

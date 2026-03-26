@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class EmergencyMedicaid < Ruleset
     input "Medicaid Residency Indicator", "From Residency Logic", "Char(1)", %w(Y N)
     input "Applicant Medicaid Citizen Or Immigrant Indicator", "From Immigration Status rule", "Char(1)", %w(Y N)

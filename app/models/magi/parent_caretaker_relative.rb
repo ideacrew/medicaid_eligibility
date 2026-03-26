@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MAGI
+module Magi
   class ParentCaretakerRelative < Ruleset
     input "Person ID", "Application", "Integer"
     input "Person List", "Application", "List"
@@ -66,7 +66,7 @@ module MAGI
       children.uniq!
 
       # Run all children through the QualifiedChild rule
-      qualified_child_rule = MAGI::QualifiedChild.new()
+      qualified_child_rule = Magi::QualifiedChild.new()
       child_list = []
       for child in children
         child_input = {

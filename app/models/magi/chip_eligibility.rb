@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
-module MAGI
-  class CHIPEligibility < Ruleset
+module Magi
+  class ChipEligibility < Ruleset
     input "Incarceration Status", "Application", "Char(1)", %w(Y N)
     input "Applicant CHIP Prelim Indicator", "Determine Preliminary Medicaid and CHIP Eligibility rule", "Char(1)", %w(Y N)
     input "Applicant Unborn Child Indicator", "Unborn Child rule", "Char(1)", %w(Y N X)

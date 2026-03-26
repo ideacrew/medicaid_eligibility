@@ -1,11 +1,10 @@
-//= require underscore
-//= require angular/angular
-//= require angular-ui-utils/modules/mask/mask
-//= require angular-dragon-drop/dragon-drop
-//= require angular-cookies/angular-cookies
+import "../components/angular/angular";
+import "../components/angular-ui-utils/modules/mask/mask";
+import "../components/angular-dragon-drop/dragon-drop";
+import "../components/angular-cookies/angular-cookies";
 
-//= require app
-//= require services
-//= require controllers
-//= require filters
-//= require directives
+import "./app";
+import "./services";
+import "./controllers";
+import "./filters";
+import "./directives";

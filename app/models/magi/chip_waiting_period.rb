@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
-module MAGI
-  class CHIPWaitingPeriod < Ruleset
+module Magi
+  class ChipWaitingPeriod < Ruleset
     input "Applicant CHIP Prelim Indicator", "Preliminary CHIP Eligibility", "Char(1)", %w(Y N)
     input "Prior Insurance", "Application", "Char(1)", %w(Y N)
     input "Prior Insurance End Date", "Application", "Date"  
