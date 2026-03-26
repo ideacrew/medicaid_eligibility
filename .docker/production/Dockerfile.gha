@@ -8,7 +8,7 @@ ARG BUILDPLATFORM
 ARG TARGETPLATFORM
 FROM --platform=$BUILDPLATFORM ruby:$RUBY_VERSION-slim-bookworm as base
 
-LABEL author="DCHBX"
+LABEL author="IdeaCrew"
 
 ENV USERNAME=mitc
 
