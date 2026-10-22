@@ -12,6 +12,6 @@
   "dependencies": {
     "esbuild": "^0.25.2",
     "sass": "^1.86.3",
-    "underscore": "1.5.1"
+    "underscore": "^1.13.8"
   }
 }

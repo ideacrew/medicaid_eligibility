@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
-ruby '~> 3.4.7'
+ruby '~> 3.4.11'
 
 gem 'rails', '~> 8.1.1'
 
 # Use Puma as the app server
-gem 'puma', '~> 6.0'
+gem 'puma', '~> 7.0'
 gem 'newrelic_rpm'
 gem 'activerecord-nulldb-adapter'
 gem 'active_model_serializers', '~> 0.10.15'
 gem 'font-awesome-rails'
 gem 'gon', '~> 6.4'
-gem 'httparty', '~> 0.21.0'
+gem 'httparty'
 gem 'rails_12factor'
 
 gem 'propshaft'
