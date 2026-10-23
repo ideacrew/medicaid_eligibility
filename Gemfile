@@ -9,7 +9,7 @@ gem 'newrelic_rpm'
 gem 'activerecord-nulldb-adapter'
 gem 'active_model_serializers', '~> 0.10.15'
 gem 'font-awesome-rails'
-gem 'gon', '~> 6.4'
+gem 'gon', '~> 8.0'
 gem 'httparty'
 gem 'rails_12factor'
 
